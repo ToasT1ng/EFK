@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+  fluentd:
+    build: ./fluentd
+    container_name: fluentd
+    environment:
+      - "FLUENTD_CONF=fluentd.conf"
+    volumes:
+      - ${FLUENTD_POS_PATH}:/var/pos
+      - ${LOG_PATH}:/var/log
+    networks:
+      - efk
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+    container_name: elasticsearch
+    environment:
+      - "ES_JAVA_OPTS=-Xmx512m -Xms512m"
+      - "ELASTIC_PASSWORD=1234"
+    volumes:
+      - ${elasticsearch_path}/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ${elasticsearch_path}/data:/usr/share/elasticsearch/data
+      - ${elasticsearch_path}/backup:/usr/share/elasticsearch/backup
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - efk
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.10.2
+    container_name: kibana
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+    environment:
+      - "ELASTICSEARCH_USERNAME=elastic"
+      - "ELASTICSEARCH_PASSWORD=1234"
+    volumes:
+      - ${kibana_path}/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    networks:
+      - efk
+
+networks:
+  efk:
+    driver: bridge
