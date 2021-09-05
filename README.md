@@ -4,6 +4,13 @@ This project uses docker & docker-compose. Before you begin, you should install 
 ## Kibana
 
 ## Elasticsearch
+Single node.
+
+###How to use?
+Simply run elasticsearch.sh
+```
+~$ bash elasticsearch.sh
+```
 
 ## Fluentd-Aggregator
 

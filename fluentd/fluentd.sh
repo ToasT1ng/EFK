@@ -4,6 +4,7 @@ SERVICE="fluentd"
 PWD="$(pwd)"
 LOG_PATH=""
 FLUENTD_POS_PATH="${PWD}/pos"
+FLUENTD_BUFFER_PATH="${PWD}/buffer"
 
 function print_usage() {
 /bin/cat << EOF
@@ -80,6 +81,6 @@ fi
 echo "start"
 {
   sudo docker build -f Dockerfile -t toast1ng/${SERVICE} .
-	sudo docker run -d -e FLUENTD_CONF=fluentd.conf -v ${FLUENTD_POS_PATH}:/var/pos -v ${LOG_PATH}:/var/log --name ${SERVICE} toast1ng/${SERVICE}
+	sudo docker run -d --network elasticsearch_efk -e FLUENTD_CONF=fluentd.conf -v ${FLUENTD_BUFFER_PATH}:/var/buffer -v ${FLUENTD_POS_PATH}:/var/pos -v ${LOG_PATH}:/var/log --name ${SERVICE} toast1ng/${SERVICE}
 	# -v /home/ubuntu/fluentd/buffer:/var/buffer
 }
