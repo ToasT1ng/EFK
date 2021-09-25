@@ -6,7 +6,7 @@ services:
     container_name: elasticsearch
     environment:
       - "ES_JAVA_OPTS=-Xmx512m -Xms512m"
-      - "ELASTIC_PASSWORD=1234"
+      - "ELASTIC_PASSWORD=toast1ng1234"
     volumes:
       - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./data:/usr/share/elasticsearch/data

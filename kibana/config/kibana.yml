@@ -10,5 +10,5 @@ monitoring.ui.container.elasticsearch.enabled: true
 ## X-Pack security credentials
 #
 elasticsearch.username: elastic
-elasticsearch.password: 1234
+elasticsearch.password: toast1ng1234
 xpack.security.sessionTimeout: 600000
