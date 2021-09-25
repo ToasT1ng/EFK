@@ -1,8 +1,8 @@
 #!/bin/bash
 
-SERVICE="elasticsearch"
+SERVICE="kibana"
 
-CONTAINER_ID=$(sudo docker ps -a -f "name=${SERVICE}$" -q)
+CONTAINER_ID=$(sudo docker ps -a -f "name=${SERVICE}" -q)
 if [ -z "$CONTAINER_ID" ] ; then
    echo "Nothing!"
 else
